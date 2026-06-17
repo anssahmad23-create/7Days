@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Stack'd — Design Tokens
+   Every color/gradient used anywhere in the app
+   must reference one of these variables. No raw
+   hex codes are allowed outside this block (and
+   the one-off SVG grain filter, which is also
+   defined purely via these tokens where possible).
+   ============================================ */
+:root {
+  /* Backgrounds */
+  --bg-deep: #080400;
+  --bg-section: #120800;
+  --bg-card: #1c0e00;
+
+  /* Accents */
+  --toasted: #d4840a;
+  --toasted-light: #f0a830;
+  --green: #4caf50;
+  --green-dark: #2e7d32;
+  --red: #cc2200;
+
+  /* Text */
+  --cream: #fff8e7;
+  --cream-muted: #c8a870;
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(180deg, #080400 0%, #120800 50%, #080400 100%);
+  --gradient-gold: linear-gradient(135deg, #d4840a 0%, #f0a830 50%, #d4840a 100%);
+  --gradient-text: linear-gradient(135deg, #fff8e7 0%, #d4840a 50%, #f0a830 100%);
+  --gradient-progress: linear-gradient(90deg, #d4840a, #cc2200, #4caf50);
+  --gradient-stack-perfect: linear-gradient(135deg, #d4840a 0%, #f0a830 50%, #fff8e7 100%);
+
+  /* One-off translucent tokens (not enumerated in the brand sheet but
+     needed for the warm canvas glow / dividers / cursor fill — kept here
+     so no component ever hardcodes an rgba() literal either). */
+  --glow-toasted: rgba(212, 132, 10, 0.05);
+  --divider-toasted: rgba(212, 132, 10, 0.2);
+  --cursor-fill: rgba(212, 132, 10, 0.3);
+  --navbar-bg: rgba(8, 4, 0, 0.9);
+  --track-fill: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-deep);
+  color: var(--cream);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  overscroll-behavior-y: none;
+}
+
+body {
+  font-weight: 300;
+  line-height: 1.85;
+}
+
+/* Custom cursor: hide the native cursor only when our cursor is active
+   (desktop, fine-pointer — see CustomCursor.tsx, which toggles this class
+   on <html> only after confirming a mouse is present). */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none;
+}
+
+::selection {
+  background: var(--toasted);
+  color: var(--bg-deep);
+}
+
+/* Page load fade-in (0 -> 1 over 0.5s) */
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-fade-in {
+  animation: page-fade-in 0.5s ease forwards;
+}
+
+/* Loading screen fade-out (0.6s) */
+@keyframes loading-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.loading-fade-out {
+  animation: loading-fade-out 0.6s ease forwards;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Gradient text helper — background-clip: text, color sourced from
+     whatever --gradient-* var is set via inline style on the element. */
+  .gradient-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Hover states that can't be expressed via inline style. */
+  .hover-toasted:hover {
+    color: var(--toasted);
+  }
+
+  .hover-toasted-bg:hover {
+    background: var(--toasted-light) !important;
+  }
+
+  .hover-card:hover {
+    transform: translateY(-6px);
+    border-top-color: var(--toasted-light) !important;
+  }
+
+  .hover-city:hover {
+    color: var(--toasted) !important;
+  }
+
+  .cursor-ring {
+    transition: background-color 0.2s ease;
+  }
+
+  .cursor-ring-hover {
+    background-color: var(--cursor-fill);
+  }
+}
