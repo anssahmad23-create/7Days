@@ -41,6 +41,8 @@ export default function Navbar({ scrollY }: NavbarProps) {
           style={{
             objectFit: "contain",
             display: "block",
+            width: "clamp(130px, 36vw, 280px)",
+            height: "auto",
             filter:
               "drop-shadow(0 0 10px rgba(255,248,231,0.5)) drop-shadow(0 0 3px rgba(255,255,255,0.8)) brightness(1.1)",
           }}

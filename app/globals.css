@@ -144,3 +144,29 @@ html.has-custom-cursor * {
     background-color: var(--cursor-fill);
   }
 }
+
+/* Canvas top vignette — shorter on mobile to not dominate small screens */
+.canvas-top-vignette {
+  height: 120px;
+}
+
+@media (min-width: 768px) {
+  .canvas-top-vignette {
+    height: 200px;
+  }
+}
+
+/* Responsive navbar height offsets */
+.menu-sticky-tabs {
+  position: sticky;
+  top: 62px;
+  z-index: 100;
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--divider-toasted);
+}
+
+@media (min-width: 768px) {
+  .menu-sticky-tabs {
+    top: 104px;
+  }
+}

@@ -121,15 +121,7 @@ export default function MenuSection() {
         </div>
 
         {/* Sticky category tab bar */}
-        <div
-          style={{
-            borderBottom: "1px solid var(--divider-toasted)",
-            position: "sticky",
-            top: "104px",
-            zIndex: 100,
-            background: "var(--bg-deep)",
-          }}
-        >
+        <div className="menu-sticky-tabs">
           <div
             ref={tabsRef}
             className="flex overflow-x-auto"

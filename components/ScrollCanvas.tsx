@@ -48,19 +48,33 @@ export default function ScrollCanvas({ images, progress, children }: ScrollCanva
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = cw / ch;
 
-      // Cover-fit: fill the viewport, cropping overflow, never letterboxed.
-      let drawWidth = cw;
-      let drawHeight = ch;
-      if (imgRatio > canvasRatio) {
-        drawHeight = ch;
-        drawWidth = ch * imgRatio;
+      let drawWidth: number;
+      let drawHeight: number;
+
+      if (window.innerWidth < 768) {
+        // Contain on mobile: landscape frames would be severely over-cropped
+        // with cover-fit on portrait phones, so show the full frame with the
+        // dark background filling the bars (virtually invisible on --bg-deep).
+        if (imgRatio > canvasRatio) {
+          drawWidth = cw;
+          drawHeight = cw / imgRatio;
+        } else {
+          drawHeight = ch;
+          drawWidth = ch * imgRatio;
+        }
       } else {
-        drawWidth = cw;
-        drawHeight = cw / imgRatio;
+        // Cover on desktop: fill the viewport, cropping overflow.
+        if (imgRatio > canvasRatio) {
+          drawHeight = ch;
+          drawWidth = ch * imgRatio;
+        } else {
+          drawWidth = cw;
+          drawHeight = cw / imgRatio;
+        }
       }
+
       const dx = (cw - drawWidth) / 2;
       const dy = (ch - drawHeight) / 2;
-
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, dx, dy, drawWidth, drawHeight);
     };
@@ -94,9 +108,8 @@ export default function ScrollCanvas({ images, progress, children }: ScrollCanva
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       {/* Dark vignette at top — keeps navbar logo readable without navbar needing a solid bg */}
       <div
-        className="absolute top-0 left-0 right-0 pointer-events-none"
+        className="absolute top-0 left-0 right-0 pointer-events-none canvas-top-vignette"
         style={{
-          height: "200px",
           background: "linear-gradient(to bottom, rgba(8,4,0,0.72) 0%, transparent 100%)",
         }}
       />
