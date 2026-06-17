@@ -60,6 +60,8 @@ export const TEXT_SECTIONS = {
 
 // Scroll height of the canvas/story container, in viewport heights.
 export const SCROLL_HEIGHT_VH = 500;
+// On mobile the 500vh journey is too long to swipe through — cut it to 200vh.
+export const MOBILE_SCROLL_HEIGHT_VH = 200;
 
 // Navbar background swap threshold, in raw scroll px.
 export const NAVBAR_SOLID_THRESHOLD = 80;

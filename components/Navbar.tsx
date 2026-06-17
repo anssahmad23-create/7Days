@@ -49,6 +49,28 @@ export default function Navbar({ scrollY }: NavbarProps) {
         />
       </a>
 
+      {/* Mobile-only Order Now button */}
+      <a
+        href="#menu"
+        data-cursor-hover
+        className="md:hidden"
+        style={{
+          fontFamily: "var(--font-inter)",
+          fontSize: "11px",
+          fontWeight: 700,
+          letterSpacing: "2px",
+          textTransform: "uppercase",
+          background: "var(--toasted)",
+          color: "var(--bg-deep)",
+          padding: "9px 16px",
+          borderRadius: "2px",
+          textDecoration: "none",
+          flexShrink: 0,
+        }}
+      >
+        Order Now
+      </a>
+
       <div className="hidden md:flex items-center gap-8">
         <a href="#menu" data-cursor-hover className="hover-toasted" style={linkStyle}>
           Menu

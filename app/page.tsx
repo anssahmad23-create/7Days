@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { useFramePreloader } from "@/hooks/useFramePreloader";
-import { SCROLL_HEIGHT_VH, TEXT_SECTIONS } from "@/lib/constants";
+import { MOBILE_SCROLL_HEIGHT_VH, SCROLL_HEIGHT_VH, TEXT_SECTIONS } from "@/lib/constants";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
@@ -23,6 +23,11 @@ export default function Home() {
 
   const [showLoading, setShowLoading] = useState(true);
   const [fadingOut, setFadingOut] = useState(false);
+  const [heroHeightVH, setHeroHeightVH] = useState(SCROLL_HEIGHT_VH);
+
+  useEffect(() => {
+    if (window.innerWidth < 768) setHeroHeightVH(MOBILE_SCROLL_HEIGHT_VH);
+  }, []);
 
   useEffect(() => {
     // Depend only on isLoaded — setting fadingOut here must not itself
@@ -44,7 +49,7 @@ export default function Home() {
           <Navbar scrollY={scrollY} />
           <ScrollProgressBar progress={pageProgress} />
 
-          <div style={{ height: `${SCROLL_HEIGHT_VH}vh`, position: "relative" }}>
+          <div style={{ height: `${heroHeightVH}vh`, position: "relative" }}>
             <ScrollCanvas images={images} progress={heroProgress}>
               <TextOverlay
                 progress={heroProgress}

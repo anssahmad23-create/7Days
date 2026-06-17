@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { SCROLL_HEIGHT_VH } from "@/lib/constants";
+import { MOBILE_SCROLL_HEIGHT_VH, SCROLL_HEIGHT_VH } from "@/lib/constants";
 
 export interface ScrollProgressState {
   /**
@@ -39,6 +39,8 @@ export function useScrollProgress(): ScrollProgressState {
   const lastCommitted = useRef<ScrollProgressState>(INITIAL_STATE);
 
   useEffect(() => {
+    const heroVH = window.innerWidth < 768 ? MOBILE_SCROLL_HEIGHT_VH : SCROLL_HEIGHT_VH;
+
     const handleScroll = () => {
       latestScrollY.current = window.scrollY;
     };
@@ -53,7 +55,7 @@ export function useScrollProgress(): ScrollProgressState {
       const pageMaxScroll = document.documentElement.scrollHeight - innerHeight;
       const pageProgress = pageMaxScroll > 0 ? Math.min(1, Math.max(0, scrollY / pageMaxScroll)) : 0;
 
-      const heroMaxScroll = (SCROLL_HEIGHT_VH / 100) * innerHeight - innerHeight;
+      const heroMaxScroll = (heroVH / 100) * innerHeight - innerHeight;
       const heroProgress = heroMaxScroll > 0 ? Math.min(1, Math.max(0, scrollY / heroMaxScroll)) : 0;
 
       const prev = lastCommitted.current;
