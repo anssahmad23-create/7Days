@@ -106,13 +106,10 @@ export default function ScrollCanvas({ images, progress, children }: ScrollCanva
         }}
       />
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-      {/* Dark vignette at top — keeps navbar logo readable without navbar needing a solid bg */}
-      <div
-        className="absolute top-0 left-0 right-0 pointer-events-none canvas-top-vignette"
-        style={{
-          background: "linear-gradient(to bottom, rgba(8,4,0,0.72) 0%, transparent 100%)",
-        }}
-      />
+      {/* Top vignette — keeps navbar readable on desktop; covers letterbox bar on mobile */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none canvas-top-vignette" />
+      {/* Bottom vignette — hides letterbox bar on mobile portrait; invisible on desktop */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none canvas-bottom-vignette" />
       {children}
     </div>
   );

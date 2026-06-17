@@ -145,14 +145,36 @@ html.has-custom-cursor * {
   }
 }
 
-/* Canvas top vignette — shorter on mobile to not dominate small screens */
+/* Canvas vignettes
+   Desktop: thin top-only shadow to keep navbar readable over the video.
+   Mobile:  tall top + bottom overlays that fully cover the letterbox bars
+            produced by contain-fit on portrait screens, fading into the
+            burger so the frame blends with the dark background. */
+
 .canvas-top-vignette {
-  height: 120px;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(8,4,0,0.72) 0%, transparent 100%);
 }
 
-@media (min-width: 768px) {
+.canvas-bottom-vignette {
+  height: 0;
+}
+
+@media (max-width: 767px) {
   .canvas-top-vignette {
-    height: 200px;
+    height: 42vh;
+    background: linear-gradient(to bottom,
+      rgba(8,4,0,1)   0%,
+      rgba(8,4,0,1)   82%,
+      rgba(8,4,0,0)   100%);
+  }
+
+  .canvas-bottom-vignette {
+    height: 42vh;
+    background: linear-gradient(to top,
+      rgba(8,4,0,1)   0%,
+      rgba(8,4,0,1)   82%,
+      rgba(8,4,0,0)   100%);
   }
 }
 
